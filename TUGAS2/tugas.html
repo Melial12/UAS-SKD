@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Caesar Cipher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 5px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Caesar Cipher Encryption/Decryption</h1>
+     <!-- Label untuk input teks yang akan diolah -->
+     <label for="text">Text:</label>
+     <!-- Input teks yang akan diolah -->
+     <input type="text" id="text" placeholder="Enter text">
+     <!-- Label untuk input kunci pergeseran -->
+     <label for="key">Key:</label>
+     <!-- Input kunci pergeseran -->
+     <input type="number" id="key" placeholder="Enter key">
+     <br><br>
+     <!-- Tombol untuk memanggil fungsi enkripsi -->
+     <button onclick="encrypt()">Encrypt</button>
+     <!-- Tombol untuk memanggil fungsi dekripsi -->
+     <button onclick="decrypt()">Decrypt</button>
+     <br><br>
+     <!-- Label untuk menampilkan hasil enkripsi atau dekripsi -->
+     <label for="result">Result:</label>
+     <!-- Paragraf yang akan menampilkan hasil -->
+     <p id="result"></p>
+ 
+     <script>
+         // Fungsi untuk melakukan enkripsi dengan Caesar Cipher
+         function encrypt() {
+             const plaintext = document.getElementById("text").value; // Mengambil teks dari input
+             const key = parseInt(document.getElementById("key").value); // Mengambil kunci pergeseran
+             let ciphertext = "";
+ 
+             for (let i = 0; i < plaintext.length; i++) {
+                 const char = plaintext[i];
+                 if (char.match(/[a-z]/i)) { // Memeriksa apakah karakter adalah huruf
+                     const code = plaintext.charCodeAt(i);
+                     if (code >= 65 && code <= 90) { // Memproses huruf besar (uppercase letters)
+                         ciphertext += String.fromCharCode(((code - 65 + key) % 26) + 65);
+                     } else if (code >= 97 && code <= 122) { // Memproses huruf kecil (lowercase letters)
+                         ciphertext += String.fromCharCode(((code - 97 + key) % 26) + 97);
+                     }
+                 } else {
+                     ciphertext += char; // Menyimpan karakter lain tanpa perubahan
+                 }
+             }
+ 
+             document.getElementById("result").innerText = ciphertext; // Menampilkan hasil enkripsi
+         }
+ 
+         // Fungsi untuk melakukan dekripsi dengan Caesar Cipher
+         function decrypt() {
+             const ciphertext = document.getElementById("text").value; // Mengambil teks terenkripsi dari input
+             const key = parseInt(document.getElementById("key").value); // Mengambil kunci pergeseran
+             let plaintext = "";
+ 
+             for (let i = 0; i < ciphertext.length; i++) {
+                 const char = ciphertext[i];
+                 if (char.match(/[a-z]/i)) { // Memeriksa apakah karakter adalah huruf
+                     const code = ciphertext.charCodeAt(i);
+                     if (code >= 65 && code <= 90) { // Memproses huruf besar (uppercase letters)
+                         plaintext += String.fromCharCode(((code - 65 - key + 26) % 26) + 65);
+                     } else if (code >= 97 && code <= 122) { // Memproses huruf kecil (lowercase letters)
+                         plaintext += String.fromCharCode(((code - 97 - key + 26) % 26) + 97);
+                     }
+                 } else {
+                     plaintext += char; // Menyimpan karakter lain tanpa perubahan
+                 }
+             }
+ 
+             document.getElementById("result").innerText = plaintext; // Menampilkan hasil dekripsi
+         }
+     </script>
+ </body> 
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enkripsi Teks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f4f5; 
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #d5e5f3;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #8e83d1; 
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #130008; 
+        }
+        p {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Enkripsi Teks</h2>
+        <label for="plainText">Masukkan Teks:</label>
+        <input type="text" id="plainText">
+        <button onclick="enkripsi()">Enkripsi</button>
+        <p>Teks Terenkripsi: <span id="encryptedText"></span></p>
+    </div>
+
+    <script>
+        function enkripsi() {
+            const plainText = document.getElementById("plainText").value;
+            const substitusi = {
+            'a' : '~', 'i' : '$', 'u' : '^', 'e' : '#', 'o' : '+',
+	        'A' : '!', 'I' : '%', 'U' : '_', 'E' : '#', 'O' : '*',
+
+            };
+            let encryptedText = '';
+
+            for (let char of plainText) {
+                if (char in substitusi) {
+                    encryptedText += substitusi[char];
+                } else {
+                    encryptedText += char;
+                }
+            }
+
+            document.getElementById("encryptedText").textContent = encryptedText;
+        }
+    </script>
+</body>
+</html>
